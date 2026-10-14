@@ -2,251 +2,494 @@
 <html lang="id" class="scroll-smooth">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rizki Surohman | Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rizki Surohman – Full-Stack Web Developer | Portofolio</title>
+  <meta name="description"
+    content="Portofolio Rizki Surohman, Full-Stack Web Developer dengan keahlian Laravel, React, Node.js, Tailwind, MySQL, Supabase, Cloudflare, Nuclei, dan Cisco." />
+  <meta name="theme-color" content="#000000" />
+
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: { neon: '#4ade80' },
+          keyframes: {
+            float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-14px)' } },
+            blink: { '0%,100%': { opacity: 1 }, '50%': { opacity: 0 } },
+            pulseGlow: { '0%,100%': { opacity: .35 }, '50%': { opacity: .7 } },
+          },
+          animation: {
+            float: 'float 6s ease-in-out infinite',
+            blink: 'blink 1s step-end infinite',
+            pulseGlow: 'pulseGlow 5s ease-in-out infinite',
+          },
+        },
+      },
+    };
+  </script>
+
   <style>
     body {
-      font-family: 'Inter', sans-serif;
-      background-color: #09090b;
-      /* Zinc 950 */
-      color: #fafafa;
+      background: #000;
     }
 
-    .glass-panel {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(74, 222, 128, .06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74, 222, 128, .06) 1px, transparent 1px);
+      background-size: 56px 56px;
+      -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+      mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
     }
 
     .glow-text {
-      text-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
+      text-shadow: 0 0 24px rgba(74, 222, 128, .55);
+    }
+
+    .card-glow {
+      transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
+    }
+
+    .card-glow:hover {
+      transform: translateY(-8px);
+      border-color: rgba(74, 222, 128, .7);
+      box-shadow: 0 0 0 1px rgba(74, 222, 128, .25), 0 20px 60px -15px rgba(74, 222, 128, .35);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: none;
+    }
+
+    .nav-link {
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      height: 2px;
+      width: 0;
+      background: #4ade80;
+      box-shadow: 0 0 10px #4ade80;
+      transition: width .3s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    ::selection {
+      background: rgba(74, 222, 128, .35);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #000;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #14532d;
+      border-radius: 8px;
     }
   </style>
 </head>
 
-<body class="antialiased selection:bg-green-400 selection:text-black">
+<body class="font-sans text-white bg-black antialiased overflow-x-hidden">
 
-  <!-- Navbar -->
-  <nav class="fixed top-0 w-full z-50 glass-panel border-b-0">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-      <a href="#" class="text-xl font-bold tracking-tighter text-white">RIZKI<span class="text-green-400">.</span></a>
-      <div class="hidden md:flex gap-6 text-sm font-medium text-zinc-400">
-        <a href="#about" class="hover:text-green-400 transition">About</a>
-        <a href="#skills" class="hover:text-green-400 transition">Skills</a>
-        <a href="#projects" class="hover:text-green-400 transition">Projects</a>
-        <a href="#experience" class="hover:text-green-400 transition">Experience</a>
-      </div>
-      <a href="#contact"
-        class="px-4 py-2 bg-white text-black font-semibold rounded-full text-sm hover:bg-green-400 transition">Contact</a>
+  <!-- Ambient background -->
+  <div class="fixed inset-0 -z-10 pointer-events-none">
+    <div class="absolute inset-0 grid-bg"></div>
+    <div
+      class="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-green-500/20 blur-[140px] animate-pulseGlow">
     </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="pt-32 pb-20 px-6 max-w-6xl mx-auto flex flex-col items-start min-h-[80vh] justify-center">
-    <p class="text-green-400 font-medium mb-4 tracking-widest uppercase text-sm">Full-Stack Web Developer</p>
-    <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
-      Crafting scalable <br> <span class="text-zinc-500">systems & applications.</span>
-    </h1>
-    <p class="text-zinc-400 max-w-2xl text-lg mb-10 leading-relaxed">
-      Bridging the gap between robust backend architecture and interactive frontend design to build premium, immersive
-      digital solutions.
-    </p>
-    <div class="flex gap-4">
-      <a href="#projects"
-        class="px-6 py-3 bg-green-400 text-black font-semibold rounded-full hover:bg-green-300 transition">Explore My
-        Work</a>
-      <a href="https://github.com/rizkisurohman1313-cpu" target="_blank"
-        class="px-6 py-3 glass-panel text-white font-semibold rounded-full hover:border-green-400/50 transition">GitHub</a>
+    <div
+      class="absolute bottom-0 -right-40 w-[480px] h-[480px] rounded-full bg-emerald-500/15 blur-[140px] animate-pulseGlow">
     </div>
-  </section>
+  </div>
 
-  <!-- About Section -->
-  <section id="about" class="py-20 px-6 max-w-6xl mx-auto border-t border-zinc-800/50">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <h2 class="text-3xl font-bold mb-6">Hello everyone, <br>I'm Rizki Surohman.</h2>
-        <p class="text-zinc-400 leading-relaxed mb-4">
-          I am an Information Technology student at Politeknik Negeri Lampung. I enjoy exploring new technologies and
-          leveraging modern frameworks to create smarter and more efficient digital solutions.
+  <!-- NAVBAR -->
+  <header class="fixed top-4 inset-x-0 z-50 px-4">
+    <nav
+      class="max-w-5xl mx-auto flex items-center justify-between rounded-full border border-green-400/20 bg-gray-900/60 backdrop-blur-xl px-6 py-3 shadow-lg shadow-black/50"
+      aria-label="Navigasi utama">
+      <a href="#home" id="nav-logo" class="font-mono font-bold text-green-400 glow-text">&lt;RS /&gt;</a>
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+        <li><a id="nav-home" href="#home" class="nav-link hover:text-green-400 transition">Home</a></li>
+        <li><a id="nav-profile" href="#profile" class="nav-link hover:text-green-400 transition">Profile</a></li>
+        <li><a id="nav-portfolio" href="#portfolio" class="nav-link hover:text-green-400 transition">Portfolio</a></li>
+        <li><a id="nav-contact" href="#contact" class="nav-link hover:text-green-400 transition">Contact</a></li>
+      </ul>
+      <a href="#contact" id="nav-cta"
+        class="hidden md:inline-block text-xs font-semibold rounded-full border border-green-400/50 text-green-400 px-4 py-2 hover:bg-green-400 hover:text-black transition">Hire
+        Me</a>
+      <button id="menu-toggle" class="md:hidden text-green-400" aria-label="Buka menu" aria-expanded="false">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+    </nav>
+    <div id="mobile-menu"
+      class="hidden md:hidden max-w-5xl mx-auto mt-2 rounded-2xl border border-green-400/20 bg-gray-900/90 backdrop-blur-xl p-4">
+      <ul class="flex flex-col gap-3 text-gray-300 font-medium">
+        <li><a href="#home" class="block py-1 hover:text-green-400">Home</a></li>
+        <li><a href="#profile" class="block py-1 hover:text-green-400">Profile</a></li>
+        <li><a href="#portfolio" class="block py-1 hover:text-green-400">Portfolio</a></li>
+        <li><a href="#contact" class="block py-1 hover:text-green-400">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center px-6 pt-28 pb-16">
+      <div class="max-w-4xl mx-auto text-center">
+        <div
+          class="reveal inline-flex items-center gap-2 rounded-full border border-green-400/30 bg-green-400/5 px-4 py-1.5 text-xs font-mono text-green-400 mb-8">
+          <span class="relative flex h-2 w-2"><span
+              class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span><span
+              class="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span></span>
+          Available for new projects
+        </div>
+
+        <h1 class="reveal text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.05]">
+          Rizki Surohman
+          <span class="block mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold text-green-400 glow-text">
+            Full-Stack Web Developer<span class="animate-blink">_</span>
+          </span>
+        </h1>
+
+        <p class="reveal mt-8 max-w-2xl mx-auto text-lg text-gray-400 leading-relaxed">
+          Membangun aplikasi web modern yang cepat, aman, dan elegan — dari antarmuka hingga infrastruktur.
         </p>
-        <p class="text-zinc-400 leading-relaxed">
-          I specialize in full-stack web development, database management, and system security. My approach is rooted in
-          the belief that robust architecture and clean code are the foundation of any great application.
-        </p>
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <div class="glass-panel p-6 rounded-2xl">
-          <h3 class="text-4xl font-bold text-white mb-2">3+</h3>
-          <p class="text-zinc-500 text-sm font-medium">Major Projects</p>
+
+        <div class="reveal mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a id="hero-portfolio" href="#portfolio"
+            class="group inline-flex items-center gap-2 rounded-full bg-green-400 px-8 py-3.5 font-semibold text-black shadow-[0_0_30px_rgba(74,222,128,.4)] hover:shadow-[0_0_45px_rgba(74,222,128,.7)] transition">
+            Lihat Portfolio
+            <svg class="w-4 h-4 group-hover:translate-x-1 transition" fill="none" stroke="currentColor"
+              stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6" />
+            </svg>
+          </a>
+          <a id="hero-contact" href="#contact"
+            class="rounded-full border border-green-400/40 px-8 py-3.5 font-semibold text-green-400 hover:bg-green-400/10 transition">Hubungi
+            Saya</a>
         </div>
-        <div class="glass-panel p-6 rounded-2xl">
-          <h3 class="text-4xl font-bold text-white mb-2">IT</h3>
-          <p class="text-zinc-500 text-sm font-medium">Undergraduate Degree</p>
+
+        <a href="#profile" aria-label="Scroll ke bawah"
+          class="reveal absolute bottom-8 left-1/2 -translate-x-1/2 text-green-400/60 hover:text-green-400 animate-float">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- PROFILE: ABOUT & TECH STACK -->
+    <section id="profile" class="px-6 py-24">
+      <div class="max-w-6xl mx-auto">
+        <div class="reveal mb-14">
+          <p class="font-mono text-sm text-green-400 mb-2">// 01. profile</p>
+          <h2 class="text-4xl md:text-5xl font-bold">About <span class="text-green-400 glow-text">Me</span></h2>
+        </div>
+
+        <div class="grid lg:grid-cols-5 gap-8">
+          <!-- About card -->
+          <article class="reveal lg:col-span-2 rounded-2xl border border-green-400/20 bg-gray-900/60 backdrop-blur p-8">
+            <div class="flex items-center gap-4 mb-6">
+              <div
+                class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-400 to-emerald-700 flex items-center justify-center text-2xl font-extrabold text-black shadow-[0_0_30px_rgba(74,222,128,.35)]">
+                RS</div>
+              <div>
+                <h3 class="text-xl font-semibold">Rizki Surohman</h3>
+                <p class="text-sm font-mono text-green-400">Full-Stack Web Developer</p>
+              </div>
+            </div>
+            <p class="text-gray-400 leading-relaxed">
+              Saya seorang developer yang berfokus pada pembangunan aplikasi web full-stack — mulai dari backend yang
+              solid, frontend yang interaktif, hingga keamanan dan jaringan. Saya menyukai kode yang bersih dan produk
+              yang benar-benar berguna.
+            </p>
+            <ul class="mt-6 space-y-3 text-sm text-gray-300">
+              <li class="flex items-center gap-3"><span class="text-green-400">▹</span> Pengembangan web end-to-end</li>
+              <li class="flex items-center gap-3"><span class="text-green-400">▹</span> Keamanan aplikasi &amp;
+                vulnerability scanning</li>
+              <li class="flex items-center gap-3"><span class="text-green-400">▹</span> Dasar jaringan &amp;
+                infrastruktur</li>
+            </ul>
+          </article>
+
+          <!-- Tech stack -->
+          <article class="reveal lg:col-span-3 rounded-2xl border border-green-400/20 bg-gray-900/60 backdrop-blur p-8">
+            <h3 class="text-xl font-semibold mb-1">Tech Stack</h3>
+            <p class="text-sm text-gray-500 mb-6 font-mono">$ ls ./skills</p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4" id="tech-grid">
+              <div class="card-glow group rounded-xl border border-green-400/20 bg-black/50 p-4 text-center">
+                <div class="font-mono text-2xl text-green-400 mb-1">Lv</div>
+                <p class="font-medium">Laravel</p>
+                <p class="text-xs text-gray-500">Backend</p>
+              </div>
+              <div class="card-glow group rounded-xl border border-green-400/20 bg-black/50 p-4 text-center">
+                <div class="font-mono text-2xl text-green-400 mb-1">⚛</div>
+                <p class="font-medium">React</p>
+                <p class="text-xs text-gray-500">Frontend</p>
+              </div>
+              <div class="card-glow group rounded-xl border border-green-400/20 bg-black/50 p-4 text-center">
+                <div class="font-mono text-2xl text-green-400 mb-1">JS</div>
+                <p class="font-medium">Node.js</p>
+                <p class="text-xs text-gray-500">Runtime</p>
+              </div>
+              <div class="card-glow group rounded-xl border border-green-400/20 bg-black/50 p-4 text-center">
+                <div class="font-mono text-2xl text-green-400 mb-1">~</div>
+                <p class="font-medium">Tailwind</p>
+                <p class="text-xs text-gray-500">Styling</p>
+              </div>
+              <div class="card-glow group rounded-xl border border-green-400/20 bg-black/50 p-4 text-center">
+                <div class="font-mono text-2xl text-green-400 mb-1">⛁</div>
+                <p class="font-medium">MySQL</p>
+                <p class="text-xs text-gray-500">Database</p>
+              </div>
+              <div class="card-glow group rounded-xl border border-green-400/20 bg-black/50 p-4 text-center">
+                <div class="font-mono text-2xl text-green-400 mb-1">⚡</div>
+                <p class="font-medium">Supabase</p>
+                <p class="text-xs text-gray-500">BaaS</p>
+              </div>
+              <div class="card-glow group rounded-xl border border-green-400/20 bg-black/50 p-4 text-center">
+                <div class="font-mono text-2xl text-green-400 mb-1">☁</div>
+                <p class="font-medium">Cloudflare</p>
+                <p class="text-xs text-gray-500">Edge &amp; DNS</p>
+              </div>
+              <div class="card-glow group rounded-xl border border-green-400/20 bg-black/50 p-4 text-center">
+                <div class="font-mono text-2xl text-green-400 mb-1">🛡</div>
+                <p class="font-medium">Nuclei</p>
+                <p class="text-xs text-gray-500">Security</p>
+              </div>
+              <div class="card-glow group rounded-xl border border-green-400/20 bg-black/50 p-4 text-center">
+                <div class="font-mono text-2xl text-green-400 mb-1">⌁</div>
+                <p class="font-medium">Cisco</p>
+                <p class="text-xs text-gray-500">Networking</p>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="px-6 py-24">
+      <div class="max-w-6xl mx-auto">
+        <div class="reveal mb-14">
+          <p class="font-mono text-sm text-green-400 mb-2">// 02. portfolio</p>
+          <h2 class="text-4xl md:text-5xl font-bold">Featured <span class="text-green-400 glow-text">Projects</span>
+          </h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Project 1 -->
+          <article
+            class="reveal card-glow flex flex-col rounded-2xl border border-green-400/20 bg-gray-900/60 backdrop-blur p-8">
+            <div class="flex items-center justify-between mb-6">
+              <div
+                class="w-12 h-12 rounded-xl border border-green-400/30 bg-green-400/10 flex items-center justify-center text-green-400">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <ellipse cx="12" cy="6" rx="8" ry="3" />
+                  <path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6" />
+                </svg>
+              </div>
+              <span class="font-mono text-xs text-gray-500">01</span>
+            </div>
+            <h3 class="text-2xl font-semibold mb-3">Aplikasi Web Laravel</h3>
+            <p class="text-gray-400 leading-relaxed flex-1">Aplikasi manajemen data berbasis Laravel dengan fitur CRUD,
+              autentikasi, dan antarmuka dashboard yang rapi.</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span
+                class="rounded-full border border-green-400/30 bg-green-400/5 px-3 py-1 text-xs font-mono text-green-400">Laravel</span>
+              <span
+                class="rounded-full border border-green-400/30 bg-green-400/5 px-3 py-1 text-xs font-mono text-green-400">MySQL</span>
+              <span
+                class="rounded-full border border-green-400/30 bg-green-400/5 px-3 py-1 text-xs font-mono text-green-400">Tailwind</span>
+            </div>
+            <a id="project-laravel" href="https://youtu.be/tZ_r7yEhjrE"
+              class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-green-400 hover:gap-3 transition-all">Lihat
+              Detail <span>→</span></a>
+          </article>
+
+          <!-- Project 2 -->
+          <article
+            class="reveal card-glow flex flex-col rounded-2xl border border-green-400/20 bg-gray-900/60 backdrop-blur p-8">
+            <div class="flex items-center justify-between mb-6">
+              <div
+                class="w-12 h-12 rounded-xl border border-green-400/30 bg-green-400/10 flex items-center justify-center text-green-400">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3 3v8a2 2 0 0 0 2 2h0M7 3v6M5 3v6M9 3v6M5 13v8M17 21V3c-2 1-4 4-4 8 0 2 1 3 4 3" />
+                </svg>
+              </div>
+              <span class="font-mono text-xs text-gray-500">02</span>
+            </div>
+            <h3 class="text-2xl font-semibold mb-3">CariMakan</h3>
+            <p class="text-gray-400 leading-relaxed flex-1">Aplikasi web full-stack untuk menemukan dan menjelajahi
+              tempat makan, lengkap dengan pencarian dan pengelolaan data.</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span
+                class="rounded-full border border-green-400/30 bg-green-400/5 px-3 py-1 text-xs font-mono text-green-400">React</span>
+              <span
+                class="rounded-full border border-green-400/30 bg-green-400/5 px-3 py-1 text-xs font-mono text-green-400">Node.js</span>
+              <span
+                class="rounded-full border border-green-400/30 bg-green-400/5 px-3 py-1 text-xs font-mono text-green-400">Full-Stack</span>
+            </div>
+            <a id="project-carimakan" href="#"
+              class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-green-400 hover:gap-3 transition-all">Lihat
+              Detail <span>→</span></a>
+          </article>
+
+          <!-- Project 3 -->
+          <article
+            class="reveal card-glow flex flex-col rounded-2xl border border-green-400/20 bg-gray-900/60 backdrop-blur p-8 md:col-span-2 lg:col-span-1">
+            <div class="flex items-center justify-between mb-6">
+              <div
+                class="w-12 h-12 rounded-xl border border-green-400/30 bg-green-400/10 flex items-center justify-center text-green-400">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3 4h2l2.4 11.2a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6" />
+                  <circle cx="9" cy="20" r="1.2" />
+                  <circle cx="17" cy="20" r="1.2" />
+                </svg>
+              </div>
+              <span class="font-mono text-xs text-gray-500">03</span>
+            </div>
+            <h3 class="text-2xl font-semibold mb-3">Mayomart</h3>
+            <p class="text-gray-400 leading-relaxed flex-1">Platform e-commerce dengan integrasi AI dan Supabase untuk
+              pengalaman belanja yang cerdas dan real-time.</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span
+                class="rounded-full border border-green-400/30 bg-green-400/5 px-3 py-1 text-xs font-mono text-green-400">E-Commerce</span>
+              <span
+                class="rounded-full border border-green-400/30 bg-green-400/5 px-3 py-1 text-xs font-mono text-green-400">AI</span>
+              <span
+                class="rounded-full border border-green-400/30 bg-green-400/5 px-3 py-1 text-xs font-mono text-green-400">Supabase</span>
+            </div>
+            <a id="project-mayomart" href="#"
+              class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-green-400 hover:gap-3 transition-all">Lihat
+              Detail <span>→</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER / CONTACT -->
+  <footer id="contact" class="px-6 pt-24 pb-10">
+    <div class="max-w-4xl mx-auto">
+      <div
+        class="reveal relative overflow-hidden rounded-3xl border border-green-400/30 bg-gray-900/70 backdrop-blur-xl p-10 md:p-16 text-center shadow-[0_0_80px_-20px_rgba(74,222,128,.35)]">
+        <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full bg-green-400/20 blur-[100px]">
+        </div>
+        <p class="relative font-mono text-sm text-green-400 mb-3">// 03. contact</p>
+        <h2 class="relative text-4xl md:text-5xl font-bold">Let's <span class="text-green-400 glow-text">Connect</span>
+        </h2>
+        <p class="relative mt-4 text-gray-400 max-w-lg mx-auto">Punya ide atau proyek? Mari berkolaborasi dan wujudkan
+          bersama.</p>
+
+        <div class="relative mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4">
+          <a id="link-github" href="https://github.com/rizkisurohman1313-cpu" target="_blank" rel="noopener noreferrer"
+            class="card-glow flex items-center justify-center gap-3 rounded-full border border-green-400/30 bg-black/50 px-6 py-3 font-medium hover:text-green-400">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.35.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z" />
+            </svg>
+            GitHub
+          </a>
+          <a id="link-email" href="mailto:rizkisurohman1313@gmail.com"
+            class="card-glow flex items-center justify-center gap-3 rounded-full border border-green-400/30 bg-black/50 px-6 py-3 font-medium hover:text-green-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <rect x="3" y="5" width="18" height="14" rx="2" />
+              <path d="m3 7 9 6 9-6" />
+            </svg>
+            Email
+          </a>
+          <a id="link-linkedin" href="https://www.linkedin.com/in/rizki-surohman-535874380" target="_blank"
+            rel="noopener noreferrer"
+            class="card-glow flex items-center justify-center gap-3 rounded-full border border-green-400/30 bg-black/50 px-6 py-3 font-medium hover:text-green-400">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4V21H3V9.75Zm6.5 0h3.8v1.54h.05c.53-1 1.82-2.04 3.75-2.04 4 0 4.75 2.63 4.75 6.05V21h-4v-4.95c0-1.18-.02-2.7-1.65-2.7-1.65 0-1.9 1.29-1.9 2.62V21h-4V9.75Z" />
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <p class="mt-10 text-center text-sm text-gray-600 font-mono">
+        © <span id="year"></span> Rizki Surohman · Built with <span class="text-green-400">♥</span> &amp; Tailwind CSS
+      </p>
     </div>
-  </section>
+  </footer>
 
-  <!-- Technical Arsenal (Skills) -->
-  <section id="skills" class="py-20 px-6 max-w-6xl mx-auto border-t border-zinc-800/50">
-    <h2 class="text-3xl font-bold mb-12">Technical Arsenal.</h2>
-    <div class="grid md:grid-cols-3 gap-6">
+  <script>
+    // Tahun footer
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-      <!-- Frontend -->
-      <div class="glass-panel p-8 rounded-3xl">
-        <h3 class="text-xl font-bold mb-6 text-green-400">Frontend</h3>
-        <div class="flex flex-wrap gap-2">
-          <span class="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full text-sm">React 19</span>
-          <span class="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full text-sm">TypeScript</span>
-          <span class="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full text-sm">Tailwind CSS</span>
-          <span class="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full text-sm">Vite</span>
-        </div>
-      </div>
+    // Menu mobile
+    const toggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    toggle.addEventListener('click', () => {
+      const open = menu.classList.toggle('hidden') === false;
+      toggle.setAttribute('aria-expanded', open);
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.add('hidden'); toggle.setAttribute('aria-expanded', false);
+    }));
 
-      <!-- Backend & Database -->
-      <div class="glass-panel p-8 rounded-3xl">
-        <h3 class="text-xl font-bold mb-6 text-green-400">Backend & Data</h3>
-        <div class="flex flex-wrap gap-2">
-          <span class="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full text-sm">Node.js</span>
-          <span class="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full text-sm">Express</span>
-          <span class="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full text-sm">Laravel</span>
-          <span class="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full text-sm">MySQL</span>
-          <span class="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full text-sm">Supabase</span>
-          <span class="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full text-sm">Prisma ORM</span>
-          <span class="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full text-sm">SQL Server</span>
-        </div>
-      </div>
+    // Animasi muncul saat scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('show'), (i % 3) * 120);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-      <!-- Security, Network & AI -->
-      <div class="glass-panel p-8 rounded-3xl">
-        <h3 class="text-xl font-bold mb-6 text-green-400">Security, Network & AI</h3>
-        <div class="flex flex-wrap gap-2">
-          <span class="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full text-sm">Nuclei</span>
-          <span class="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full text-sm">Cisco Packet Tracer</span>
-          <span class="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full text-sm">AI RAG</span>
-          <span class="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full text-sm">Vector Stores</span>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Featured Work (Projects) -->
-  <section id="projects" class="py-20 px-6 max-w-6xl mx-auto border-t border-zinc-800/50">
-    <h2 class="text-3xl font-bold mb-12">Featured Work.</h2>
-    <div class="grid md:grid-cols-2 gap-8">
-
-      <!-- Mayomart -->
-      <div class="glass-panel rounded-3xl overflow-hidden group">
-        <div class="h-48 bg-zinc-900 border-b border-zinc-800 p-6 flex flex-col justify-end">
-          <p class="text-green-400 font-mono text-sm mb-2">E-Commerce & AI</p>
-          <h3 class="text-2xl font-bold">Mayomart</h3>
-        </div>
-        <div class="p-6">
-          <p class="text-zinc-400 mb-6 text-sm leading-relaxed">An online supermarket web application featuring an
-            integrated AI shopping assistant chatbot connected to a Supabase cloud database backend.</p>
-          <a href="#" class="inline-flex items-center text-sm font-semibold hover:text-green-400 transition">View
-            Details →</a>
-        </div>
-      </div>
-
-      <!-- CariMakan -->
-      <div class="glass-panel rounded-3xl overflow-hidden group">
-        <div class="h-48 bg-zinc-900 border-b border-zinc-800 p-6 flex flex-col justify-end">
-          <p class="text-green-400 font-mono text-sm mb-2">Fullstack Web App</p>
-          <h3 class="text-2xl font-bold">CariMakan</h3>
-        </div>
-        <div class="p-6">
-          <p class="text-zinc-400 mb-6 text-sm leading-relaxed">A comprehensive web platform comprising a Vite frontend
-            and a Node.js Express backend, fully connected to a MySQL database.</p>
-          <a href="#" class="inline-flex items-center text-sm font-semibold hover:text-green-400 transition">View
-            Details →</a>
-        </div>
-      </div>
-
-      <!-- Sistem Informasi KTM -->
-      <div class="glass-panel rounded-3xl overflow-hidden group">
-        <div class="h-48 bg-zinc-900 border-b border-zinc-800 p-6 flex flex-col justify-end">
-          <p class="text-green-400 font-mono text-sm mb-2">System Information</p>
-          <h3 class="text-2xl font-bold">KTM Pintar Berbasis NFC</h3>
-        </div>
-        <div class="p-6">
-          <p class="text-zinc-400 mb-6 text-sm leading-relaxed">Information system development using E-Money Co-Branding
-            method for campus digitalization at SMKN 1 Pakuan Ratu.</p>
-          <a href="#" class="inline-flex items-center text-sm font-semibold hover:text-green-400 transition">View
-            Details →</a>
-        </div>
-      </div>
-
-      <!-- Vulnerability Assessment -->
-      <div class="glass-panel rounded-3xl overflow-hidden group">
-        <div class="h-48 bg-zinc-900 border-b border-zinc-800 p-6 flex flex-col justify-end">
-          <p class="text-green-400 font-mono text-sm mb-2">Cybersecurity</p>
-          <h3 class="text-2xl font-bold">Risk Register & Nuclei Auditing</h3>
-        </div>
-        <div class="p-6">
-          <p class="text-zinc-400 mb-6 text-sm leading-relaxed">Executed security vulnerability assessments using Nuclei
-            to detect misconfigurations, missing security headers, and SSL/TLS certificate details.</p>
-          <a href="#" class="inline-flex items-center text-sm font-semibold hover:text-green-400 transition">View
-            Details →</a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Professional Journey -->
-  <section id="experience" class="py-20 px-6 max-w-6xl mx-auto border-t border-zinc-800/50">
-    <h2 class="text-3xl font-bold mb-12">Professional Journey.</h2>
-    <div class="space-y-8 pl-4 border-l border-zinc-800">
-
-      <div class="relative pl-6">
-        <div class="absolute w-3 h-3 bg-green-400 rounded-full -left-[6.5px] top-2"></div>
-        <p class="text-sm text-zinc-500 font-mono mb-1">Present</p>
-        <h3 class="text-xl font-bold">IT Internship Preparation</h3>
-        <p class="text-green-400 text-sm mb-3">Full-Stack Development Focus</p>
-        <p class="text-zinc-400 text-sm max-w-2xl leading-relaxed">Actively preparing for professional internships by
-          building a robust portfolio of full-stack web applications, practicing system security auditing, and modern
-          UI/UX design.</p>
-      </div>
-
-      <div class="relative pl-6">
-        <div class="absolute w-3 h-3 bg-zinc-700 rounded-full -left-[6.5px] top-2"></div>
-        <p class="text-sm text-zinc-500 font-mono mb-1">2026</p>
-        <h3 class="text-xl font-bold">Information Technology Student</h3>
-        <p class="text-zinc-300 text-sm mb-3">Politeknik Negeri Lampung</p>
-        <p class="text-zinc-400 text-sm max-w-2xl leading-relaxed">Pursuing an undergraduate degree. Actively engaged in
-          coursework spanning web architecture, relational databases, network administration (Cisco), and system
-          security.</p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Footer / Contact -->
-  <section id="contact" class="py-32 px-6 border-t border-zinc-800/50 text-center">
-    <h2 class="text-4xl md:text-6xl font-bold mb-6">Let's build <br><span class="text-zinc-500">something great.</span>
-    </h2>
-    <p class="text-zinc-400 mb-10 max-w-xl mx-auto">I'm currently open for new internship opportunities. Whether you
-      have a question or just want to say hi, I'll try my best to get back to you!</p>
-
-    <a href="mailto:rizkisurohman1313@gmail.com"
-      class="inline-block px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-green-400 transition mb-16">
-      Say Hello
-    </a>
-
-    <div class="flex justify-center gap-6 text-sm font-medium text-zinc-500">
-      <a href="mailto:rizkisurohman1313@gmail.com" class="hover:text-white transition">Email</a>
-      <a href="https://github.com/rizkisurohman1313-cpu" target="_blank" class="hover:text-white transition">GitHub</a>
-      <a href="https://www.linkedin.com/in/rizki-surohman-535874380" target="_blank"
-        class="hover:text-white transition">LinkedIn</a>
-    </div>
-    <p class="text-zinc-700 text-xs mt-8">© 2026 Rizki Surohman. All rights reserved.</p>
-  </section>
-
+    // Highlight nav aktif
+    const links = document.querySelectorAll('.nav-link');
+    const sections = ['home', 'profile', 'portfolio', 'contact'].map(id => document.getElementById(id));
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(s => spy.observe(s));
+  </script>
 </body>
 
 </html>
